@@ -8,8 +8,8 @@ from PIL import Image, ImageTk
 pin = Tk()
 pin.geometry('1100x628')
 pin.title("Bank IT")
-pin.iconbitmap(r"C:\Users\chris\Bank IT\logo.ico")
-pinbg = ImageTk.PhotoImage(file=r"C:\Users\chris\Bank IT\bglogin.png")
+pin.iconbitmap(r"image files/logo.ico")
+pinbg = ImageTk.PhotoImage(file=r"image files/BG-2.png")
 
 canvas1 = Canvas(pin, width = 1100,
                  height = 628)
@@ -18,13 +18,13 @@ canvas1.pack(fill = "both", expand = True)
 canvas1.create_image( 0, 0, image = pinbg,
                      anchor = "nw")
 
-logo = ImageTk.PhotoImage(file=r"C:\Users\chris\Bank IT\logo.png")
+logo = ImageTk.PhotoImage(file=r"image files/logo.png")
 canvas1.create_image(80, 40, image = logo,
                      anchor = "nw")
 
 mainfont = TkFont.Font(family="Myriad Pro", size=75, weight="bold")
 subfont = TkFont.Font(family="Myriad Pro", size=11)
-pinfont = TkFont.Font (family = "Myriad Pro", size = 50)
+pinfont = TkFont.Font (family = "Myriad Pro", size = 50, weight="bold")
 
 canvas1.create_text( 550, 160, text = "PIN", fill='white', font=mainfont)
 canvas1.create_text( 550, 250, text = "Please enter your 4-digit pin code:", fill='white', font=subfont)
@@ -32,24 +32,23 @@ canvas1.create_text( 550, 250, text = "Please enter your 4-digit pin code:", fil
 
 def back(event):
     pin.destroy()
-    #import home
+    import home
 
-
-backPhoto = ImageTk.PhotoImage(Image.open(r"C:\Users\chris\Bank IT\backbtn.png"))
+backPhoto = ImageTk.PhotoImage(Image.open(r"image files/backbtn.png"))
 btnBack = canvas1.create_image(1000, 590, image=backPhoto)
 canvas1.tag_bind(btnBack, "<Button-1>", back)
 
-pin1Photo = ImageTk.PhotoImage(Image.open(r"C:\Users\chris\Bank IT\pinbtn.png"))
+pin1Photo = ImageTk.PhotoImage(Image.open(r"image files/pinbtn.png"))
 entryPin1 = canvas1.create_image(298, 350, image=pin1Photo)
-pin2Photo = ImageTk.PhotoImage(Image.open(r"C:\Users\chris\Bank IT\pinbtn.png"))
+pin2Photo = ImageTk.PhotoImage(Image.open(r"image files/pinbtn.png"))
 entryPin2 = canvas1.create_image(458, 350, image=pin2Photo)
-pin3Photo = ImageTk.PhotoImage(Image.open(r"C:\Users\chris\Bank IT\pinbtn.png"))
+pin3Photo = ImageTk.PhotoImage(Image.open(r"image files/pinbtn.png"))
 entryPin3 = canvas1.create_image(618, 350, image=pin3Photo)
-pin4Photo = ImageTk.PhotoImage(Image.open(r"C:\Users\chris\Bank IT\pinbtn.png"))
+pin4Photo = ImageTk.PhotoImage(Image.open(r"image files/pinbtn.png"))
 entryPin4 = canvas1.create_image(778, 350, image=pin4Photo)
 
 
-pinfont = TkFont.Font(family="Myriad Pro", size=50)
+pinfont = TkFont.Font(family="Myriad Pro", size=50, weight="bold")
 pin_value1 = StringVar()
 pin_value2 = StringVar()
 pin_value3 = StringVar()
@@ -122,7 +121,7 @@ pin2_entry = Entry(pin,
                     justify="center",
                     textvariable = pin_value2)
 pin2_entry.pack()
-pin2 = canvas1.create_window(455,350, window=pin2_entry)
+pin2 = canvas1.create_window(459,350, window=pin2_entry)
 pin2_entry.bind('<BackSpace>', lambda *args:'break')
 
 #creating text box for pin3
@@ -156,13 +155,12 @@ def checkpin(event):
         pin.withdraw()
         homewindow = Tk()
         homewindow.geometry("1100x628")
-
         homewindow.title("Bank IT")
 
     else:
         messagebox.showerror('Error', 'Wrong pin! Please try again.')
 
-submitbtn_img = ImageTk.PhotoImage(Image.open(r"C:\Users\chris\Bank IT\submitbtn.png"))
+submitbtn_img = ImageTk.PhotoImage(Image.open(r"image files/submitbtn.png"))
 submitbtn = canvas1.create_image(535, 490, image=submitbtn_img)
 
 
@@ -191,21 +189,15 @@ def clicked(event):
             pin1_entry.focus_set()
             pin1_entry.delete(len(pin1_entry.get()) - 1)
 
-
     if timesclicked >= 5:
         timesclicked = 0
 
-backspace_img = Image.open(r"C:\Users\chris\Bank IT\Backspace.png")
+backspace_img = Image.open(r"image files/backspacebtn.png")
 backspace_resize = backspace_img.resize((50,50))
 backspace = ImageTk.PhotoImage(backspace_resize)
 backspacebtn = canvas1.create_image(920, 360, image=backspace)
 
 canvas1.tag_bind(backspacebtn, "<Button-1>", clicked)
-
-
-
-
-
 
 
 pin.resizable(False, False)
