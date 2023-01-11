@@ -54,12 +54,13 @@ pin_value1 = StringVar()
 pin_value2 = StringVar()
 pin_value3 = StringVar()
 pin_value4 = StringVar()
+specialchar=['!','@','#','$','%','^','&','*','(',')','-','+','?','_','=',',','<','>','/',"'","[",']',"|","\\",'.',';','{','}',':','"']
 
 #declaring limits for pin 1
 def pin1_limit(*args):
     if len(pin_value1.get()) > 0:
         pin_value1.set(pin_value1.get()[-1])
-    if pin_value1.get().isnumeric() == False:
+    if pin_value1.get().isalpha() == True or pin_value1.get() in specialchar:
         messagebox.showerror('Error!', 'You must input a number')
         pin1_entry.delete(len(pin1_entry.get()) - 1)
 
@@ -69,7 +70,7 @@ pin_value1.trace("w", lambda *args: pin1_limit(pin_value1))
 def pin2_limit(*args):
     if len(pin_value2.get()) > 0:
         pin_value2.set(pin_value2.get()[-1])
-    if pin_value2.get().isnumeric() == False:
+    if pin_value2.get().isalpha() == True or pin_value2.get() in specialchar:
         messagebox.showerror('Error!', 'You must input a number')
         pin2_entry.delete(len(pin2_entry.get()) - 1)
 
@@ -79,21 +80,24 @@ pin_value2.trace("w", lambda *args: pin2_limit(pin_value2))
 def pin3_limit(*args):
     if len(pin_value3.get()) > 0:
         pin_value3.set(pin_value3.get()[-1])
-    if pin_value3.get().isnumeric() == False:
+    if pin_value3.get().isalpha() == True or pin_value3.get() in specialchar:
         messagebox.showerror('Error!', 'You must input a number')
         pin3_entry.delete(len(pin3_entry.get()) - 1)
 
 pin_value3.trace("w", lambda *args: pin3_limit(pin_value3))
 
+
 #declaring limits for pin 4
 def pin4_limit(*args):
     if len(pin_value4.get()) > 0:
         pin_value4.set(pin_value4.get()[-1])
-    if pin_value4.get().isnumeric() == False:
+    if pin_value4.get().isalpha() == True or pin_value4.get() in specialchar:
         messagebox.showerror('Error!', 'You must input a number')
         pin4_entry.delete(len(pin4_entry.get()) - 1)
 
+
 pin_value4.trace("w", lambda *args: pin4_limit(pin_value4))
+
 
 #creating text box for pin1
 pin1_entry = Entry(pin,
@@ -106,6 +110,7 @@ pin1_entry = Entry(pin,
                     textvariable = pin_value1)
 pin1_entry.pack()
 pin1 = canvas1.create_window(297,350, window=pin1_entry)
+pin1_entry.bind('<BackSpace>', lambda *args:'break')
 
 #creating text box for pin2
 pin2_entry = Entry(pin,
@@ -118,6 +123,7 @@ pin2_entry = Entry(pin,
                     textvariable = pin_value2)
 pin2_entry.pack()
 pin2 = canvas1.create_window(455,350, window=pin2_entry)
+pin2_entry.bind('<BackSpace>', lambda *args:'break')
 
 #creating text box for pin3
 pin3_entry = Entry(pin,
@@ -130,6 +136,7 @@ pin3_entry = Entry(pin,
                     textvariable = pin_value3)
 pin3_entry.pack()
 pin3 = canvas1.create_window(615,350, window=pin3_entry)
+pin3_entry.bind('<BackSpace>', lambda *args:'break')
 
 #creating text box for pin4
 pin4_entry = Entry(pin,
@@ -142,7 +149,7 @@ pin4_entry = Entry(pin,
                     textvariable = pin_value4)
 pin4_entry.pack()
 pin4 = canvas1.create_window(780,350, window=pin4_entry)
-
+pin4_entry.bind('<BackSpace>', lambda *args:'break')
 
 def checkpin(event):
     if pin_value1.get() == '5' and pin_value2.get() == '2' and pin_value3.get() == '4' and pin_value4.get() == '1':
@@ -151,6 +158,7 @@ def checkpin(event):
         homewindow.geometry("1100x628")
 
         homewindow.title("Bank IT")
+
     else:
         messagebox.showerror('Error', 'Wrong pin! Please try again.')
 
@@ -159,6 +167,43 @@ submitbtn = canvas1.create_image(535, 490, image=submitbtn_img)
 
 
 canvas1.tag_bind(submitbtn, "<Button-1>", checkpin)
+
+timesclicked = 0
+
+def clicked(event):
+    global timesclicked
+
+    timesclicked = timesclicked + 1
+    if timesclicked <= 4 and timesclicked > 0:
+        if timesclicked == 1:
+            pin4_entry.focus_set()
+            pin4_entry.delete(len(pin4_entry.get()) - 1)
+
+        elif timesclicked == 2:
+            pin3_entry.focus_set()
+            pin3_entry.delete(len(pin3_entry.get()) - 1)
+
+        elif timesclicked == 3:
+            pin2_entry.focus_set()
+            pin2_entry.delete(len(pin2_entry.get()) - 1)
+
+        elif timesclicked == 4:
+            pin1_entry.focus_set()
+            pin1_entry.delete(len(pin1_entry.get()) - 1)
+
+
+    if timesclicked >= 5:
+        timesclicked = 0
+
+backspace_img = Image.open(r"C:\Users\chris\Bank IT\Backspace.png")
+backspace_resize = backspace_img.resize((50,50))
+backspace = ImageTk.PhotoImage(backspace_resize)
+backspacebtn = canvas1.create_image(920, 360, image=backspace)
+
+canvas1.tag_bind(backspacebtn, "<Button-1>", clicked)
+
+
+
 
 
 
