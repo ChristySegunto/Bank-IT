@@ -13,22 +13,22 @@ window.geometry("1100x628")
 
 window.title("Bank IT")
 
-window.iconbitmap(r"C:\Users\chris\Bank IT\logo.ico")
+window.iconbitmap(r"image files/logo.ico")
 
 #login window background
-loginbg = ImageTk.PhotoImage(file=r"C:\Users\chris\Bank IT\bglogin.png")
+loginbg = ImageTk.PhotoImage(file=r"image files/BG-1.jpg")
 
 #Creating canvas for bg and texts
 canvas1 = Canvas(window, width = 1100,
                  height = 628)
 
 canvas1.pack(fill = "both", expand = True)
-canvas1.create_image( 0, 0, image = loginbg, 
+canvas1.create_image( 0, 0, image = loginbg,
                      anchor = "nw")
 
 #logo of bank it
-logo = ImageTk.PhotoImage(file=r"C:\Users\chris\Bank IT\logo.png")
-canvas1.create_image( 80, 40, image = logo, 
+logo = ImageTk.PhotoImage(file=r"image files/logo.png")
+canvas1.create_image( 80, 40, image = logo,
                      anchor = "nw")
 
 
@@ -43,7 +43,6 @@ canvas1.create_text( 420, 280, text = "IT", fill='#f6008d', font=mainfont)
 canvas1.create_text( 270, 340, text = "Automated Teller Machine System", fill='white', font=subfont)
 
 
-
 #login acc
 USERNAME = StringVar()
 PASSWORD = StringVar()
@@ -51,7 +50,7 @@ PASSWORD = StringVar()
 #Username section
 canvas1.create_text( 670, 210, text = "USERNAME", fill='white', font=smallfont)
 
-txtbox_img= Image.open(r"C:\Users\chris\Bank IT\textbox.png")
+txtbox_img= Image.open(r"image files/textbox.png")
 txtbox_resize = txtbox_img.resize((450,140))
 txtbox=ImageTk.PhotoImage(txtbox_resize)
 canvas1.create_image(570,175,anchor=NW,image=txtbox)
@@ -84,32 +83,21 @@ pass_entry = Entry(canvas1,
 pass_entry.pack()
 password = canvas1.create_window(750,334, window=pass_entry)
 
-
 #login btn
 def checkacc(event):
     if USERNAME.get() == 'Christysegunto' and PASSWORD.get() == '12345':
         window.withdraw()
         menuwindow = Tk()
         menuwindow.geometry("1100x628")
-
         menuwindow.title("Bank IT")
     else:
         messagebox.showerror('Wrong credentials', 'Wrong credentials! Please try again.')
 
-
 #declaring image as btn
-btn_img = ImageTk.PhotoImage(Image.open(r"C:\Users\chris\Bank IT\loginbtn.png"))
+btn_img = ImageTk.PhotoImage(Image.open(r"image files/loginbtn.png"))
 loginbtn = canvas1.create_image(785, 450, image=btn_img)
-
 
 canvas1.tag_bind(loginbtn, "<Button-1>", checkacc)
 
-
-
-
 window.resizable(False, False)
 window.mainloop()
-
-
-
-
