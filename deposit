@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 from PIL import ImageTk, Image
 import tkinter.font as TkFont
 
@@ -56,7 +57,7 @@ def deposit1_limit(*args):
         deposit_value1.set(deposit_value1.get()[-1])
     if deposit_value1.get().isnumeric() == False:
         messagebox.showerror('Error!', 'You must input a number')
-        deposit_entry.delete(len(deposit1_entry.get()) - 1)
+        deposit1_entry.delete(len(deposit1_entry.get()) - 1)
 
 deposit_value1.trace("w", lambda *args: deposit1_limit(deposit_value1))
 
