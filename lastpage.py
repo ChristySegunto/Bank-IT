@@ -9,10 +9,10 @@ deposit.geometry("1100x628")
 
 deposit.title("Bank IT")
 
-deposit.iconbitmap(r"C:\Users\mando\PycharmProjects\pythonProject1\image\logo.ico")
+deposit.iconbitmap(r"image files\logo.ico")
 
 # login window background
-lastpage = ImageTk.PhotoImage(file=r"C:\Users\mando\PycharmProjects\pythonProject1\image\BG-8.jpg")
+lastpage = ImageTk.PhotoImage(file=r"image files\BG-8.jpg")
 
 # Creating canvas for bg and texts
 canvas1 = Canvas(deposit, width=1100,
