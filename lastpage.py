@@ -42,10 +42,10 @@ canvas1.create_text(300, 540, text="General Luna corner Muralla Streets,", fill=
 canvas1.create_text(290, 560, text="Intramuros,Manila,Philippines 1002", fill='white', font=subfont)
 
 
-dep = ImageTk.PhotoImage(file=r"C:\Users\mando\PycharmProjects\pythonProject1\image\ICONS.png")
+dep = ImageTk.PhotoImage(file=r"image files\ICONS.png")
 canvas1.create_image(500, 300, image=dep,
                      anchor="nw")
-deposit1_img = Image.open(r"C:\Users\mando\PycharmProjects\pythonProject1\image\ICONS.png")
+deposit1_img = Image.open(r"image files\ICONS.png")
 canvas1.create_image(500, 300, image=dep,
                      anchor="nw")
 
