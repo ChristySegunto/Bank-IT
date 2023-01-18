@@ -128,9 +128,6 @@ def tenthou(event):
     elif len(deposit_entry.get()) == 0:
         deposit_entry.insert(0, value1)
 
-
-
-
 tenthou_image = Image.open(r'image files\10k.png')
 tenthou_resize = tenthou_image.resize((150,50))
 tenthou_final = ImageTk.PhotoImage(tenthou_resize)
