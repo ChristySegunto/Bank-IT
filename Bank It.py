@@ -6,6 +6,10 @@ import tkinter.font as TkFont
 timesclicked = 0
 specialchar = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '+', '?', '_', '=', ',',
                                        '<', '>', '/', "'", "[", ']', "|", "\\", '.', ';', '{', '}', ':', '"']
+
+atmbalance = 10000
+newval = int()
+
 #phptextbox1_string1 = StringVar()
 
 #Start page
@@ -108,6 +112,8 @@ def start(event):
     # login btn
     def checkacc(event):
         if USERNAME.get() == '12345' and PASSWORD.get() == '12345':
+            un_entry.delete(0, END)
+            pass_entry.delete(0, END)
             login.withdraw()
             pin = Toplevel()
             pin.geometry("1100x628")
@@ -250,603 +256,9 @@ def start(event):
             def checkpin(event):
                 if pin_value1.get() == '5' and pin_value2.get() == '2' and pin_value3.get() == '4' and pin_value4.get() == '1':
                     pin.withdraw()
-                    home = Toplevel()
-                    home.geometry("1100x628")
-                    home.title("Bank IT")
-                    home.iconbitmap(r"image files\logo.ico")
-                    homebg = ImageTk.PhotoImage(file=r"image files\BG-3.jpg")
 
-                    homecanvas = Canvas(home, width=1100,
-                                     height=628)
-                    homecanvas.pack(fill="both", expand=True)
-                    homecanvas.create_image(0, 0, image=homebg,
-                                         anchor="nw")
-                    logo = ImageTk.PhotoImage(file=r"image files\logo.png")
-                    homecanvas.create_image(80, 40, image=logo,
-                                         anchor="nw")
-
-                    #creating font for home page
-                    home_mainfont = TkFont.Font(family="Myriad Pro", size=75, weight="bold")
-                    home_subfont = TkFont.Font(family="Myriad Pro", size=11)
-                    #creating texts for home page
-                    homecanvas.create_text(550, 180, text="Hello,", fill='white', font=home_mainfont)
-                    homecanvas.create_text(550, 270, text="How can we help you today?", fill='white', font=home_subfont)
-
-
-                    #for withdraw button
-                    def withdraw(event):
-                        home.destroy()
-                        withdraw = Toplevel()
-                        withdraw.geometry("1100x628")
-                        withdraw.title("Bank IT")
-                        withdraw.iconbitmap(r"image files\logo.ico")
-                        withdrawbg = ImageTk.PhotoImage(file=r"image files\BG-2.jpg")
-
-                        withdrawcanvas = Canvas(withdraw, width=1100, height=628)
-                        withdrawcanvas.pack(fill="both", expand=True)
-                        withdrawcanvas.create_image(0, 0, image=withdrawbg, anchor="nw")
-
-                        # logo of bank it
-                        logo = ImageTk.PhotoImage(file=r"image files\logo.png")
-                        withdrawcanvas.create_image(80, 40, image=logo,
-                                                    anchor="nw")
-
-                        # window page font
-                        withdraw_mainfont = TkFont.Font(family="Myriad Pro", size=75, weight="bold")
-                        withdraw_subfont = TkFont.Font(family="Myriad Pro", size=14)
-                        withdrawfont = TkFont.Font(family="Myriad Pro", size=30)
-
-                        # window page logo
-                        logo = ImageTk.PhotoImage(file=r'image files\logo.png')
-                        withdrawcanvas.create_image(80, 40, image=logo, anchor="nw")
-
-                        # window text
-                        withdrawcanvas.create_text(550, 160, text="Withdraw", fill='white', font=withdraw_mainfont)
-                        withdrawcanvas.create_text(550, 240, text="How much do you wish to withdraw?", fill='white',
-                                                   font=withdraw_subfont)
-                        withdrawcanvas.create_text(550, 260, text="Enter your desired amount:", fill='white',
-                                                   font=withdraw_subfont)
-
-                        # window textbox
-                        withdraw_image = Image.open(r"image files\php_txtbox.png")
-                        withdraw_resize = withdraw_image.resize((330, 60))
-                        withdraw_img = ImageTk.PhotoImage(withdraw_resize)
-                        withdrawcanvas.create_image(385, 300, anchor="nw", image=withdraw_img)
-
-                        withdraw_value1 = StringVar()
-                        value1 = int()
-                        amount = int()
-
-
-                        # creating textbox limit
-                        def withdraw_limit(*args):
-                            if withdraw_entry.get().isalpha() == True or withdraw_entry.get() in specialchar:
-                                messagebox.showerror('Error!', 'You must input a number')
-                                withdraw_entry.delete(0, END)
-
-                        withdraw_value1.trace("w", lambda *args: withdraw_limit(withdraw_value1))
-
-                        # creating text box for withdraw
-                        withdraw_entry = Entry(withdraw,
-                                               font=withdrawfont,
-                                               width=8,
-                                               fg="white",
-                                               bd=0,
-                                               bg="#161B81",
-                                               justify="right",
-                                               textvariable=withdraw_value1)
-                        withdraw_entry.pack()
-                        withdrawbox = withdrawcanvas.create_window(605, 329, window=withdraw_entry)
-                        withdraw_entry.bind('<BackSpace>', lambda *args: 'break')
-
-                        # button for five hundred
-                        def fivehun(event):
-
-                            value1 = "500"
-                            if len(withdraw_entry.get()) != 0:
-                                withdraw_entry.delete(0, END)
-                                withdraw_entry.insert(0, value1)
-
-                            elif len(withdraw_entry.get()) == 0:
-                                withdraw_entry.insert(0, value1)
-
-                        fivehun_image = Image.open(r'image files\5h.png')
-                        fivehun_resize = fivehun_image.resize((110, 36))
-                        fivehun_final = ImageTk.PhotoImage(fivehun_resize)
-                        fivehun_layout = withdrawcanvas.create_image(170, 400, anchor=NW, image=fivehun_final)
-                        withdrawcanvas.tag_bind(fivehun_layout, "<Button-1>", fivehun)
-
-                        # button for one thousand
-                        def onethou(event):
-
-                            value1 = "1000"
-                            if len(withdraw_entry.get()) != 0:
-                                withdraw_entry.delete(0, END)
-                                withdraw_entry.insert(0, value1)
-
-                            elif len(withdraw_entry.get()) == 0:
-                                withdraw_entry.insert(0, value1)
-
-                        onethou_image = Image.open(r'image files\1k.png')
-                        onethou_resize = onethou_image.resize((110, 36))
-                        onethou_final = ImageTk.PhotoImage(onethou_resize)
-                        onethou_layout = withdrawcanvas.create_image(340, 400, anchor=NW, image=onethou_final)
-                        withdrawcanvas.tag_bind(onethou_layout, "<Button-1>", onethou)
-
-                        # button for one thousand five hundred
-                        def onefive(event):
-                            global amount
-                            value1 = "1500"
-                            if len(withdraw_entry.get()) != 0:
-                                withdraw_entry.delete(0, END)
-                                withdraw_entry.insert(0, value1)
-
-                            elif len(withdraw_entry.get()) == 0:
-                                withdraw_entry.insert(0, value1)
-
-                        onefive_image = Image.open(r'image files\1k5.png')
-                        onefive_resize = onefive_image.resize((110, 36))
-                        onefive_final = ImageTk.PhotoImage(onefive_resize)
-                        onefive_layout = withdrawcanvas.create_image(500, 400, anchor=NW, image=onefive_final)
-                        withdrawcanvas.tag_bind(onefive_layout, "<Button-1>", onefive)
-
-                        # button for two thousand
-                        def twothou(event):
-                            global amount
-                            value1 = "2000"
-                            if len(withdraw_entry.get()) != 0:
-                                withdraw_entry.delete(0, END)
-                                withdraw_entry.insert(0, value1)
-                            elif len(withdraw_entry.get()) == 0:
-                                withdraw_entry.insert(0, value1)
-
-                        twothou_image = Image.open(r'image files\2k.png')
-                        twothou_resize = twothou_image.resize((110, 36))
-                        twothou_final = ImageTk.PhotoImage(twothou_resize)
-                        twothou_layout = withdrawcanvas.create_image(670, 400, anchor=NW, image=twothou_final)
-                        withdrawcanvas.tag_bind(twothou_layout, "<Button-1>", twothou)
-
-                        # button for two thousand five hundred
-                        def twofive(event):
-                            global amount
-                            value1 = "2500"
-                            if len(withdraw_entry.get()) != 0:
-                                withdraw_entry.delete(0, END)
-                                withdraw_entry.insert(0, value1)
-                            elif len(withdraw_entry.get()) == 0:
-                                withdraw_entry.insert(0, value1)
-
-                        twofive_image = Image.open(r'image files\2k5.png')
-                        twofive_resize = twofive_image.resize((110, 36))
-                        twofive_final = ImageTk.PhotoImage(twofive_resize)
-                        twofive_layout = withdrawcanvas.create_image(840, 400, anchor=NW, image=twofive_final)
-                        withdrawcanvas.tag_bind(twofive_layout, "<Button-1>", twofive)
-
-                        # button for three thousand
-                        def threethou(event):
-
-                            value1 = "3000"
-                            if len(withdraw_entry.get()) != 0:
-                                withdraw_entry.delete(0, END)
-                                withdraw_entry.insert(0, value1)
-
-                            elif len(withdraw_entry.get()) == 0:
-                                withdraw_entry.insert(0, value1)
-
-                        threethou_image = Image.open(r'image files\3k.png')
-                        threethou_resize = threethou_image.resize((110, 36))
-                        threethou_final = ImageTk.PhotoImage(threethou_resize)
-                        threethou_layout = withdrawcanvas.create_image(170, 460, anchor=NW, image=threethou_final)
-                        withdrawcanvas.tag_bind(threethou_layout, "<Button-1>", threethou)
-
-                        # button for three thousand five hundred
-                        def threefive(event):
-
-                            value1 = "3500"
-                            if len(withdraw_entry.get()) != 0:
-                                withdraw_entry.delete(0, END)
-                                withdraw_entry.insert(0, value1)
-
-                            elif len(withdraw_entry.get()) == 0:
-                                withdraw_entry.insert(0, value1)
-
-                        threefive_image = Image.open(r'image files\3k5.png')
-                        threefive_resize = threefive_image.resize((110, 36))
-                        threefive_final = ImageTk.PhotoImage(threefive_resize)
-                        threefive_layout = withdrawcanvas.create_image(340, 460, anchor=NW, image=threefive_final)
-                        withdrawcanvas.tag_bind(threefive_layout, "<Button-1>", threefive)
-
-                        # button for four thousand
-                        def fourthou(event):
-                            global amount
-                            value1 = "4000"
-                            if len(withdraw_entry.get()) != 0:
-                                withdraw_entry.delete(0, END)
-                                withdraw_entry.insert(0, value1)
-
-                            elif len(withdraw_entry.get()) == 0:
-                                withdraw_entry.insert(0, value1)
-
-                        fourthou_image = Image.open(r'image files\4k.png')
-                        fourthou_resize = fourthou_image.resize((110, 36))
-                        fourthou_final = ImageTk.PhotoImage(fourthou_resize)
-                        fourthou_layout = withdrawcanvas.create_image(500, 460, anchor=NW, image=fourthou_final)
-                        withdrawcanvas.tag_bind(fourthou_layout, "<Button-1>", fourthou)
-
-                        # button for four thousand five hundred
-                        def fourfive(event):
-                            global amount
-                            value1 = "4500"
-                            if len(withdraw_entry.get()) != 0:
-                                withdraw_entry.delete(0, END)
-                                withdraw_entry.insert(0, value1)
-                            elif len(withdraw_entry.get()) == 0:
-                                withdraw_entry.insert(0, value1)
-
-                        fourfive_image = Image.open(r'image files\4k5.png')
-                        fourfive_resize = fourfive_image.resize((110, 36))
-                        fourfive_final = ImageTk.PhotoImage(fourfive_resize)
-                        fourfive_layout = withdrawcanvas.create_image(670, 460, anchor=NW, image=fourfive_final)
-                        withdrawcanvas.tag_bind(fourfive_layout, "<Button-1>", fourfive)
-
-                        # button for five thousand
-                        def fivethou(event):
-                            global amount
-                            value1 = "5000"
-                            if len(withdraw_entry.get()) != 0:
-                                withdraw_entry.delete(0, END)
-                                withdraw_entry.insert(0, value1)
-                            elif len(withdraw_entry.get()) == 0:
-                                withdraw_entry.insert(0, value1)
-
-                        fivethou_image = Image.open(r'image files\5k.png')
-                        fivethou_resize = fivethou_image.resize((110, 36))
-                        fivethou_final = ImageTk.PhotoImage(fivethou_resize)
-                        fivethou_layout = withdrawcanvas.create_image(840, 460, anchor=NW, image=fivethou_final)
-                        withdrawcanvas.tag_bind( fivethou_layout, "<Button-1>",  fivethou)
-
-                        # button for deleting
-                        def clicked(event):
-                            withdraw_entry.delete(0, END)
-
-                        backspace_img = Image.open(r"image files/Backspace.png")
-                        backspace_resize = backspace_img.resize((50, 50))
-                        backspace = ImageTk.PhotoImage(backspace_resize)
-                        backspacebtn = withdrawcanvas.create_image(750, 330, image=backspace)
-                        withdrawcanvas.tag_bind(backspacebtn, "<Button-1>", clicked)
-
-                        def submitbtn(event):
-                            if amount > 5000:
-                                messagebox.showerror('Error!', 'You have exceeded your limit')
-                            # if amount <= balance:
-
-                        submitbtn_img = ImageTk.PhotoImage(Image.open(r"image files/submitbtn.png"))
-                        submitbtn = withdrawcanvas.create_image(555, 550, image=submitbtn_img)
-
-                        withdrawcanvas.tag_bind(submitbtn, "<Button-1>", submitbtn)
-
-                        withdraw.resizable(False, False)
-                        withdraw.mainloop()
-
-                    withdrawPhoto = ImageTk.PhotoImage(Image.open(r"image files\withdrawbtn.png"))
-                    btnWithdraw = homecanvas.create_image(550, 360, image=withdrawPhoto)
-                    homecanvas.tag_bind(btnWithdraw, "<Button-1>", withdraw)
-
-                    #for balance inquiry button
-                    def balinq(event):
-                        home.destroy()
-
-                        balance = Toplevel()
-                        balance.geometry("1100x628")
-                        balance.title("Bank IT")
-                        balance.iconbitmap(r"image files\logo.ico")
-                        balancebg = ImageTk.PhotoImage(file=r"image files\BG-2.jpg")
-
-                        balancecanvas = Canvas(balance, width=1100, height=628)
-                        balancecanvas.pack(fill="both", expand=True)
-                        balancecanvas.create_image(0, 0, image=balancebg, anchor="nw")
-
-                        # logo of bank it
-                        logo = ImageTk.PhotoImage(file=r"image files\logo.png")
-                        balancecanvas.create_image(80, 40, image=logo,
-                                                    anchor="nw")
-
-                        # balance inquiry page font
-                        balance_mainfont = TkFont.Font(family="Myriad Pro", size=75, weight="bold")
-                        balance_subfont = TkFont.Font(family="Myriad Pro", size=14)
-                        balancefont = TkFont.Font(family="Myriad Pro", size=30)
-
-                        # balance inquiry page logo
-                        logo = ImageTk.PhotoImage(file=r'image files\logo.png')
-                        balancecanvas.create_image(80, 40, image=logo, anchor="nw")
-
-                        # balance inquiry design/layout
-                        balancecanvas.create_text(550, 160, text="Balance", fill='white', font=balance_mainfont)
-                        balancecanvas.create_text(555, 300, text="Account Balance (Savings)", fill='#F6008d', font=balance_subfont)
-
-                        phptextbox = Image.open('image files\php_txtbox.png')
-                        phptextbox_resize = phptextbox.resize((340, 70))
-                        phptextbox_final = ImageTk.PhotoImage(phptextbox_resize)
-                        balancecanvas.create_image(380, 340, anchor=NW, image=phptextbox_final)
-
-                        # back button
-                        def backbutton(event):
-                            balance.withdraw()
-
-                        backbutton_image = Image.open(
-                            r'image files\backbtn.png')
-                        backbutton_image_resize = backbutton_image.resize((200, 40))
-                        backbutton_image_final = ImageTk.PhotoImage(backbutton_image_resize)
-                        backbutton_image_layout = balancecanvas.create_image(900, 560, anchor=NW, image=backbutton_image_final)
-                        balancecanvas.tag_bind(backbutton_image_layout, "<Button-1>", backbutton)
-
-
-
-
-                        balance.resizable(False, False)
-                        balance.mainloop()
-
-                    balinqPhoto = ImageTk.PhotoImage(Image.open(r"image files\binquirybtn.png"))
-                    btnBInquiry = homecanvas.create_image(550, 420, image=balinqPhoto)
-                    homecanvas.tag_bind(btnBInquiry, "<Button-1>", balinq)
-
-
-
-                    def deposit(event):
-                        home.destroy()
-                        deposit = Toplevel()
-                        deposit.geometry("1100x628")
-                        deposit.title("Bank IT")
-                        deposit.iconbitmap(r"image files\logo.ico")
-                        depositbg = ImageTk.PhotoImage(file=r"image files\BG-1.jpg")
-
-                        depositcanvas = Canvas(deposit, width=1100, height=628)
-                        depositcanvas.pack(fill="both", expand=True)
-                        depositcanvas.create_image(0, 0, image=depositbg, anchor="nw")
-
-                        # logo of bank it
-                        logo = ImageTk.PhotoImage(file=r"image files\logo.png")
-                        depositcanvas.create_image(80, 40, image=logo,
-                                                   anchor="nw")
-
-                        #deposit page fonts
-                        deposit_mainfont = TkFont.Font(family="Myriad Pro", size=75, weight="bold")
-                        deposit_subfont = TkFont.Font(family="Myriad Pro", size=11)
-                        depositfont = TkFont.Font(family="Myriad Pro", size=30)
-
-                        depositcanvas.create_text(550, 160, text="Deposit", fill='white', font=deposit_mainfont)
-                        depositcanvas.create_text(550, 240, text="How much do you wish to deposit?", fill='white',
-                                                  font=deposit_subfont)
-                        depositcanvas.create_text(550, 260, text="Enter your desired amount:", fill='white',
-                                                  font=deposit_subfont)
-
-                        deposit_value1 = StringVar()
-                        deposit_image = Image.open(r"image files\php_txtbox.png")
-                        deposit_resize = deposit_image.resize((330, 60))
-                        deposit_img = ImageTk.PhotoImage(deposit_resize)
-                        depositcanvas.create_image(385, 300, anchor="nw", image=deposit_img)
-
-                        def deposit_limit(*args):
-                            if int(deposit_entry.get()) > 50000:
-                                messagebox.showerror('Error!', 'You have reached the amount limit')
-                                deposit_entry.delete(0, END)
-                            elif deposit_entry.get().isalpha() == True or deposit_entry.get() in specialchar:
-                                messagebox.showerror('Error!', 'You must input a number')
-                                deposit_entry.delete(0, END)
-
-                        deposit_value1.trace("w", lambda *args: deposit_limit(deposit_value1))
-
-                        # creating text box for pin1
-                        deposit_entry = Entry(deposit,
-                                              font=depositfont,
-                                              width=8,
-                                              fg="white",
-                                              bd=0,
-                                              bg="#161B81",
-                                              justify="right",
-                                              textvariable=deposit_value1)
-                        deposit_entry.pack()
-                        depositbox = depositcanvas.create_window(605, 329, window=deposit_entry)
-                        deposit_entry.bind('<BackSpace>', lambda *args: 'break')
-
-                        # button for five hundred
-                        def fivehun(event):
-
-                            value1 = "500"
-                            if len(deposit_entry.get()) != 0:
-                                deposit_entry.delete(0, END)
-                                deposit_entry.insert(0, value1)
-
-                            elif len(deposit_entry.get()) == 0:
-                                deposit_entry.insert(0, value1)
-
-                        fivehun_image = Image.open(r'image files\5h.png')
-                        fivehun_resize = fivehun_image.resize((110, 36))
-                        fivehun_final = ImageTk.PhotoImage(fivehun_resize)
-                        fivehun_layout = depositcanvas.create_image(170, 400, anchor=NW, image=fivehun_final)
-                        depositcanvas.tag_bind(fivehun_layout, "<Button-1>", fivehun)
-
-                        # button for one thousand
-                        def onethou(event):
-
-                            value1 = "1000"
-                            if len(deposit_entry.get()) != 0:
-                                deposit_entry.delete(0, END)
-                                deposit_entry.insert(0, value1)
-
-                            elif len(deposit_entry.get()) == 0:
-                                deposit_entry.insert(0, value1)
-
-                        onethou_image = Image.open(r'image files\1k.png')
-                        onethou_resize = onethou_image.resize((110, 36))
-                        onethou_final = ImageTk.PhotoImage(onethou_resize)
-                        onethou_layout = depositcanvas.create_image(340, 400, anchor=NW, image=onethou_final)
-                        depositcanvas.tag_bind(onethou_layout, "<Button-1>", onethou)
-
-                        # button for one thousand five hundred
-                        def onefive(event):
-                            global amount
-                            value1 = "1500"
-                            if len(deposit_entry.get()) != 0:
-                                deposit_entry.delete(0, END)
-                                deposit_entry.insert(0, value1)
-
-                            elif len(deposit_entry.get()) == 0:
-                                deposit_entry.insert(0, value1)
-
-                        onefive_image = Image.open(r'image files\1k5.png')
-                        onefive_resize = onefive_image.resize((110, 36))
-                        onefive_final = ImageTk.PhotoImage(onefive_resize)
-                        onefive_layout = depositcanvas.create_image(500, 400, anchor=NW, image=onefive_final)
-                        depositcanvas.tag_bind(onefive_layout, "<Button-1>", onefive)
-
-                        # button for two thousand
-                        def twothou(event):
-                            global amount
-                            value1 = "2000"
-                            if len(deposit_entry.get()) != 0:
-                                deposit_entry.delete(0, END)
-                                deposit_entry.insert(0, value1)
-                            elif len(deposit_entry.get()) == 0:
-                                deposit_entry.insert(0, value1)
-
-                        twothou_image = Image.open(r'image files\2k.png')
-                        twothou_resize = twothou_image.resize((110, 36))
-                        twothou_final = ImageTk.PhotoImage(twothou_resize)
-                        twothou_layout = depositcanvas.create_image(670, 400, anchor=NW, image=twothou_final)
-                        depositcanvas.tag_bind(twothou_layout, "<Button-1>", twothou)
-
-                        # button for two thousand five hundred
-                        def twofive(event):
-                            global amount
-                            value1 = "2500"
-                            if len(deposit_entry.get()) != 0:
-                                deposit_entry.delete(0, END)
-                                deposit_entry.insert(0, value1)
-                            elif len(deposit_entry.get()) == 0:
-                                deposit_entry.insert(0, value1)
-
-                        twofive_image = Image.open(r'image files\2k5.png')
-                        twofive_resize = twofive_image.resize((110, 36))
-                        twofive_final = ImageTk.PhotoImage(twofive_resize)
-                        twofive_layout = depositcanvas.create_image(840, 400, anchor=NW, image=twofive_final)
-                        depositcanvas.tag_bind(twofive_layout, "<Button-1>", twofive)
-
-                        # button for three thousand
-                        def threethou(event):
-
-                            value1 = "3000"
-                            if len(deposit_entry.get()) != 0:
-                                deposit_entry.delete(0, END)
-                                deposit_entry.insert(0, value1)
-
-                            elif len(deposit_entry.get()) == 0:
-                                deposit_entry.insert(0, value1)
-
-                        threethou_image = Image.open(r'image files\3k.png')
-                        threethou_resize = threethou_image.resize((110, 36))
-                        threethou_final = ImageTk.PhotoImage(threethou_resize)
-                        threethou_layout = depositcanvas.create_image(170, 460, anchor=NW, image=threethou_final)
-                        depositcanvas.tag_bind(threethou_layout, "<Button-1>", threethou)
-
-                        # button for three thousand five hundred
-                        def threefive(event):
-
-                            value1 = "3500"
-                            if len(deposit_entry.get()) != 0:
-                                deposit_entry.delete(0, END)
-                                deposit_entry.insert(0, value1)
-
-                            elif len(deposit_entry.get()) == 0:
-                                deposit_entry.insert(0, value1)
-
-                        threefive_image = Image.open(r'image files\3k5.png')
-                        threefive_resize = threefive_image.resize((110, 36))
-                        threefive_final = ImageTk.PhotoImage(threefive_resize)
-                        threefive_layout = depositcanvas.create_image(340, 460, anchor=NW, image=threefive_final)
-                        depositcanvas.tag_bind(threefive_layout, "<Button-1>", threefive)
-
-                        # button for four thousand
-                        def fourthou(event):
-                            global amount
-                            value1 = "4000"
-                            if len(deposit_entry.get()) != 0:
-                                deposit_entry.delete(0, END)
-                                deposit_entry.insert(0, value1)
-
-                            elif len(deposit_entry.get()) == 0:
-                                deposit_entry.insert(0, value1)
-
-                        fourthou_image = Image.open(r'image files\4k.png')
-                        fourthou_resize = fourthou_image.resize((110, 36))
-                        fourthou_final = ImageTk.PhotoImage(fourthou_resize)
-                        fourthou_layout = depositcanvas.create_image(500, 460, anchor=NW, image=fourthou_final)
-                        depositcanvas.tag_bind(fourthou_layout, "<Button-1>", fourthou)
-
-                        # button for four thousand five hundred
-                        def fourfive(event):
-                            global amount
-                            value1 = "4500"
-                            if len(deposit_entry.get()) != 0:
-                                deposit_entry.delete(0, END)
-                                deposit_entry.insert(0, value1)
-                            elif len(deposit_entry.get()) == 0:
-                                deposit_entry.insert(0, value1)
-
-                        fourfive_image = Image.open(r'image files\4k5.png')
-                        fourfive_resize = fourfive_image.resize((110, 36))
-                        fourfive_final = ImageTk.PhotoImage(fourfive_resize)
-                        fourfive_layout = depositcanvas.create_image(670, 460, anchor=NW, image=fourfive_final)
-                        depositcanvas.tag_bind(fourfive_layout, "<Button-1>", fourfive)
-
-                        # button for five thousand
-                        def fivethou(event):
-                            global amount
-                            value1 = "5000"
-                            if len(deposit_entry.get()) != 0:
-                                deposit_entry.delete(0, END)
-                                deposit_entry.insert(0, value1)
-                            elif len(deposit_entry .get()) == 0:
-                                deposit_entry.insert(0, value1)
-
-                        fivethou_image = Image.open(r'image files\5k.png')
-                        fivethou_resize = fivethou_image.resize((110, 36))
-                        fivethou_final = ImageTk.PhotoImage(fivethou_resize)
-                        fivethou_layout = depositcanvas.create_image(840, 460, anchor=NW, image=fivethou_final)
-                        depositcanvas.tag_bind(fivethou_layout, "<Button-1>", fivethou)
-
-                        # button for deleting
-                        def clicked(event):
-                            deposit_entry.delete(0, END)
-
-                        backspace_img = Image.open(r"image files/Backspace.png")
-                        backspace_resize = backspace_img.resize((50, 50))
-                        backspace = ImageTk.PhotoImage(backspace_resize)
-                        backspacebtn = depositcanvas.create_image(750, 330, image=backspace)
-                        depositcanvas.tag_bind(backspacebtn, "<Button-1>", clicked)
-
-                        def submitbtn(event):
-                            if amount > 5000:
-                                messagebox.showerror('Error!', 'You have exceeded your limit')
-                            # if amount <= balance:
-
-                        submitbtn_img = ImageTk.PhotoImage(Image.open(r"image files/submitbtn.png"))
-                        submitbtn = depositcanvas.create_image(555, 550, image=submitbtn_img)
-
-                        depositcanvas.tag_bind(submitbtn, "<Button-1>", submitbtn)
-
-                        deposit.resizable(False, False)
-                        deposit.mainloop()
-
-
-                    depositPhoto = ImageTk.PhotoImage(Image.open(r"image files\depositbtn.png"))
-                    btnDeposit = homecanvas.create_image(550, 480, image=depositPhoto)
-                    homecanvas.tag_bind(btnDeposit, "<Button-1>", deposit)
-
-
-
-                    home.resizable(False, False)
-                    home.mainloop()
+                    #home section
+                    goToHomePage()
 
                 else:
                     messagebox.showerror('Error', 'Wrong pin! Please try again.')
@@ -913,5 +325,871 @@ startbtn_img = ImageTk.PhotoImage(Image.open(r"image files\startbtn.png"))
 startbtn = maincanvas.create_image(550, 430, image=startbtn_img)
 maincanvas.tag_bind(startbtn, "<Button-1>", start)
 
+
+
+def goToHomePage():
+    home = Toplevel()
+    home.geometry("1100x628")
+    home.title("Bank IT")
+    home.iconbitmap(r"image files\logo.ico")
+    homebg = ImageTk.PhotoImage(file=r"image files\BG-3.jpg")
+
+    homecanvas = Canvas(home, width=1100,
+                        height=628)
+    homecanvas.pack(fill="both", expand=True)
+    homecanvas.create_image(0, 0, image=homebg,
+                            anchor="nw")
+    logo = ImageTk.PhotoImage(file=r"image files\logo.png")
+    homecanvas.create_image(80, 40, image=logo,
+                            anchor="nw")
+
+    # creating font for home page
+    home_mainfont = TkFont.Font(family="Myriad Pro", size=75, weight="bold")
+    home_subfont = TkFont.Font(family="Myriad Pro", size=11)
+    # creating texts for home page
+    homecanvas.create_text(550, 180, text="Hello,", fill='white', font=home_mainfont)
+    homecanvas.create_text(550, 270, text="How can we help you today?", fill='white', font=home_subfont)
+
+    # for withdraw button
+    def withdraw(event):
+        home.destroy()
+        withdraw = Toplevel()
+        withdraw.geometry("1100x628")
+        withdraw.title("Bank IT")
+        withdraw.iconbitmap(r"image files\logo.ico")
+        withdrawbg = ImageTk.PhotoImage(file=r"image files\BG-2.jpg")
+
+        withdrawcanvas = Canvas(withdraw, width=1100, height=628)
+        withdrawcanvas.pack(fill="both", expand=True)
+        withdrawcanvas.create_image(0, 0, image=withdrawbg, anchor="nw")
+
+        # logo of bank it
+        logo = ImageTk.PhotoImage(file=r"image files\logo.png")
+        withdrawcanvas.create_image(80, 40, image=logo,
+                                    anchor="nw")
+
+        # window page font
+        withdraw_mainfont = TkFont.Font(family="Myriad Pro", size=75, weight="bold")
+        withdraw_subfont = TkFont.Font(family="Myriad Pro", size=14)
+        withdrawfont = TkFont.Font(family="Myriad Pro", size=30)
+
+        # window page logo
+        logo = ImageTk.PhotoImage(file=r'image files\logo.png')
+        withdrawcanvas.create_image(80, 40, image=logo, anchor="nw")
+
+        # window text
+        withdrawcanvas.create_text(550, 160, text="Withdraw", fill='white', font=withdraw_mainfont)
+        withdrawcanvas.create_text(550, 240, text="How much do you wish to withdraw?", fill='white',
+                                   font=withdraw_subfont)
+        withdrawcanvas.create_text(550, 260, text="Enter your desired amount:", fill='white',
+                                   font=withdraw_subfont)
+
+        # window textbox
+        withdraw_image = Image.open(r"image files\php_txtbox.png")
+        withdraw_resize = withdraw_image.resize((330, 60))
+        withdraw_img = ImageTk.PhotoImage(withdraw_resize)
+        withdrawcanvas.create_image(385, 300, anchor="nw", image=withdraw_img)
+
+        withdraw_value1 = StringVar()
+
+        # creating textbox limit
+        def withdraw_limit(*args):
+            if withdraw_entry.get().isalpha() == True or withdraw_entry.get() in specialchar:
+                messagebox.showerror('Error!', 'You must input a number')
+                withdraw_entry.delete(0, END)
+
+        withdraw_value1.trace("w", lambda *args: withdraw_limit(withdraw_value1))
+
+        # creating text box for withdraw
+        withdraw_entry = Entry(withdraw,
+                               font=withdrawfont,
+                               width=8,
+                               fg="white",
+                               bd=0,
+                               bg="#161B81",
+                               justify="right",
+                               textvariable=withdraw_value1)
+        withdraw_entry.pack()
+        withdrawbox = withdrawcanvas.create_window(605, 329, window=withdraw_entry)
+        withdraw_entry.bind('<BackSpace>', lambda *args: 'break')
+
+        # button for five hundred
+        def fivehun(event):
+
+            value1 = "500"
+            if len(withdraw_entry.get()) != 0:
+                withdraw_entry.delete(0, END)
+                withdraw_entry.insert(0, value1)
+
+            elif len(withdraw_entry.get()) == 0:
+                withdraw_entry.insert(0, value1)
+
+        fivehun_image = Image.open(r'image files\5h.png')
+        fivehun_resize = fivehun_image.resize((110, 36))
+        fivehun_final = ImageTk.PhotoImage(fivehun_resize)
+        fivehun_layout = withdrawcanvas.create_image(170, 400, anchor=NW, image=fivehun_final)
+        withdrawcanvas.tag_bind(fivehun_layout, "<Button-1>", fivehun)
+
+        # button for one thousand
+        def onethou(event):
+
+            value1 = "1000"
+            if len(withdraw_entry.get()) != 0:
+                withdraw_entry.delete(0, END)
+                withdraw_entry.insert(0, value1)
+
+            elif len(withdraw_entry.get()) == 0:
+                withdraw_entry.insert(0, value1)
+
+        onethou_image = Image.open(r'image files\1k.png')
+        onethou_resize = onethou_image.resize((110, 36))
+        onethou_final = ImageTk.PhotoImage(onethou_resize)
+        onethou_layout = withdrawcanvas.create_image(340, 400, anchor=NW, image=onethou_final)
+        withdrawcanvas.tag_bind(onethou_layout, "<Button-1>", onethou)
+
+        # button for one thousand five hundred
+        def onefive(event):
+            value1 = "1500"
+            if len(withdraw_entry.get()) != 0:
+                withdraw_entry.delete(0, END)
+                withdraw_entry.insert(0, value1)
+
+            elif len(withdraw_entry.get()) == 0:
+                withdraw_entry.insert(0, value1)
+
+        onefive_image = Image.open(r'image files\1k5.png')
+        onefive_resize = onefive_image.resize((110, 36))
+        onefive_final = ImageTk.PhotoImage(onefive_resize)
+        onefive_layout = withdrawcanvas.create_image(500, 400, anchor=NW, image=onefive_final)
+        withdrawcanvas.tag_bind(onefive_layout, "<Button-1>", onefive)
+
+        # button for two thousand
+        def twothou(event):
+            value1 = "2000"
+            if len(withdraw_entry.get()) != 0:
+                withdraw_entry.delete(0, END)
+                withdraw_entry.insert(0, value1)
+            elif len(withdraw_entry.get()) == 0:
+                withdraw_entry.insert(0, value1)
+
+        twothou_image = Image.open(r'image files\2k.png')
+        twothou_resize = twothou_image.resize((110, 36))
+        twothou_final = ImageTk.PhotoImage(twothou_resize)
+        twothou_layout = withdrawcanvas.create_image(670, 400, anchor=NW, image=twothou_final)
+        withdrawcanvas.tag_bind(twothou_layout, "<Button-1>", twothou)
+
+        # button for two thousand five hundred
+        def twofive(event):
+            value1 = "2500"
+            if len(withdraw_entry.get()) != 0:
+                withdraw_entry.delete(0, END)
+                withdraw_entry.insert(0, value1)
+            elif len(withdraw_entry.get()) == 0:
+                withdraw_entry.insert(0, value1)
+
+        twofive_image = Image.open(r'image files\2k5.png')
+        twofive_resize = twofive_image.resize((110, 36))
+        twofive_final = ImageTk.PhotoImage(twofive_resize)
+        twofive_layout = withdrawcanvas.create_image(840, 400, anchor=NW, image=twofive_final)
+        withdrawcanvas.tag_bind(twofive_layout, "<Button-1>", twofive)
+
+        # button for three thousand
+        def threethou(event):
+            value1 = "3000"
+            if len(withdraw_entry.get()) != 0:
+                withdraw_entry.delete(0, END)
+                withdraw_entry.insert(0, value1)
+
+            elif len(withdraw_entry.get()) == 0:
+                withdraw_entry.insert(0, value1)
+
+        threethou_image = Image.open(r'image files\3k.png')
+        threethou_resize = threethou_image.resize((110, 36))
+        threethou_final = ImageTk.PhotoImage(threethou_resize)
+        threethou_layout = withdrawcanvas.create_image(170, 460, anchor=NW, image=threethou_final)
+        withdrawcanvas.tag_bind(threethou_layout, "<Button-1>", threethou)
+
+        # button for three thousand five hundred
+        def threefive(event):
+            value1 = "3500"
+            if len(withdraw_entry.get()) != 0:
+                withdraw_entry.delete(0, END)
+                withdraw_entry.insert(0, value1)
+
+            elif len(withdraw_entry.get()) == 0:
+                withdraw_entry.insert(0, value1)
+
+        threefive_image = Image.open(r'image files\3k5.png')
+        threefive_resize = threefive_image.resize((110, 36))
+        threefive_final = ImageTk.PhotoImage(threefive_resize)
+        threefive_layout = withdrawcanvas.create_image(340, 460, anchor=NW, image=threefive_final)
+        withdrawcanvas.tag_bind(threefive_layout, "<Button-1>", threefive)
+
+        # button for four thousand
+        def fourthou(event):
+            value1 = "4000"
+            if len(withdraw_entry.get()) != 0:
+                withdraw_entry.delete(0, END)
+                withdraw_entry.insert(0, value1)
+
+            elif len(withdraw_entry.get()) == 0:
+                withdraw_entry.insert(0, value1)
+
+        fourthou_image = Image.open(r'image files\4k.png')
+        fourthou_resize = fourthou_image.resize((110, 36))
+        fourthou_final = ImageTk.PhotoImage(fourthou_resize)
+        fourthou_layout = withdrawcanvas.create_image(500, 460, anchor=NW, image=fourthou_final)
+        withdrawcanvas.tag_bind(fourthou_layout, "<Button-1>", fourthou)
+
+        # button for four thousand five hundred
+        def fourfive(event):
+            value1 = "4500"
+            if len(withdraw_entry.get()) != 0:
+                withdraw_entry.delete(0, END)
+                withdraw_entry.insert(0, value1)
+            elif len(withdraw_entry.get()) == 0:
+                withdraw_entry.insert(0, value1)
+
+        fourfive_image = Image.open(r'image files\4k5.png')
+        fourfive_resize = fourfive_image.resize((110, 36))
+        fourfive_final = ImageTk.PhotoImage(fourfive_resize)
+        fourfive_layout = withdrawcanvas.create_image(670, 460, anchor=NW, image=fourfive_final)
+        withdrawcanvas.tag_bind(fourfive_layout, "<Button-1>", fourfive)
+
+        # button for five thousand
+        def fivethou(event):
+            value1 = "5000"
+            if len(withdraw_entry.get()) != 0:
+                withdraw_entry.delete(0, END)
+                withdraw_entry.insert(0, value1)
+            elif len(withdraw_entry.get()) == 0:
+                withdraw_entry.insert(0, value1)
+
+        fivethou_image = Image.open(r'image files\5k.png')
+        fivethou_resize = fivethou_image.resize((110, 36))
+        fivethou_final = ImageTk.PhotoImage(fivethou_resize)
+        fivethou_layout = withdrawcanvas.create_image(840, 460, anchor=NW, image=fivethou_final)
+        withdrawcanvas.tag_bind(fivethou_layout, "<Button-1>", fivethou)
+
+        # button for deleting
+        def clicked(event):
+            withdraw_entry.delete(0, END)
+
+        backspace_img = Image.open(r"image files/Backspace.png")
+        backspace_resize = backspace_img.resize((50, 50))
+        backspace = ImageTk.PhotoImage(backspace_resize)
+        backspacebtn = withdrawcanvas.create_image(750, 330, image=backspace)
+        withdrawcanvas.tag_bind(backspacebtn, "<Button-1>", clicked)
+
+        def onSubmit(event):
+            global atmbalance
+            global newval
+
+            if withdraw_value1.get().isnumeric() == True :
+                newval = int(withdraw_value1.get())
+                if atmbalance >= newval:
+                    atmbalance = atmbalance - newval
+                    messagebox.showinfo('Successful Transaction', 'You have withdrawn successfully')
+                    withdraw.withdraw()
+                    home.destroy()
+                    goToLastPage()
+
+            elif withdraw_value1.get().isalpha() == True:
+                messagebox.showerror('Error!', 'Invalid input. Please try again')
+
+            if withdraw_value1.get() == "500":
+                if atmbalance >= 500:
+                    atmbalance = atmbalance - 500
+                    messagebox.showinfo('Successful Transaction', 'You have withdrawn 500 pesos')
+                    withdraw.withdraw()
+                    home.destroy()
+                    goToLastPage()
+                else:
+                    messagebox.showerror('Error!', 'You do not have enough balance')
+
+            if withdraw_value1.get() == "1000":
+                if atmbalance >= 1000:
+                    atmbalance = atmbalance - 1000
+                    messagebox.showinfo('Successful Transaction', 'You have withdrawn 1000 pesos')
+                    withdraw.withdraw()
+                    goToLastPage()
+                else:
+                    messagebox.showerror('Error!', 'You do not have enough balance')
+
+            elif withdraw_value1.get() == "1500":
+                if atmbalance >= 1500:
+                    atmbalance = atmbalance - 1500
+                    messagebox.showinfo('Successful Transaction', 'You have withdrawn 1500 pesos')
+                    withdraw.withdraw()
+                    goToLastPage()
+                else:
+                    messagebox.showerror('Error!', 'You do not have enough balance')
+
+
+            elif withdraw_value1.get() == "2000":
+                if atmbalance >= 2000:
+                    atmbalance = atmbalance - 2000
+                    messagebox.showinfo('Successful Transaction', 'You have withdrawn 2000 pesos')
+                    withdraw.withdraw()
+                    goToLastPage()
+                else:
+                    messagebox.showerror('Error!', 'You do not have enough balance')
+
+            elif withdraw_value1.get() == "2500":
+                if atmbalance >= 2500:
+                    atmbalance = atmbalance - 2500
+                    messagebox.showinfo('Successful Transaction', 'You have withdrawn 2500 pesos')
+                    withdraw.withdraw()
+                    goToLastPage()
+                else:
+                    messagebox.showerror('Error!', 'You do not have enough balance')
+
+            elif withdraw_value1.get() == "3000":
+                if atmbalance >= 3000:
+                    atmbalance = atmbalance - 3000
+                    messagebox.showinfo('Successful Transaction', 'You have withdrawn 3000 pesos')
+                    withdraw.withdraw()
+                    goToLastPage()
+                else:
+                    messagebox.showerror('Error!', 'You do not have enough balance')
+
+            elif withdraw_value1.get() == "3500":
+                if atmbalance >= 3500:
+                    atmbalance = atmbalance - 3500
+                    messagebox.showinfo('Successful Transaction', 'You have withdrawn 3500 pesos')
+                    withdraw.withdraw()
+                    goToLastPage()
+                else:
+                    messagebox.showerror('Error!', 'You do not have enough balance')
+
+            elif withdraw_value1.get() == "4000":
+                if atmbalance >= 4000:
+                    atmbalance = atmbalance - 4000
+                    messagebox.showinfo('Successful Transaction', 'You have withdrawn 4000 pesos')
+                    withdraw.withdraw()
+                    goToLastPage()
+                else:
+                    messagebox.showerror('Error!', 'You do not have enough balance')
+
+            elif withdraw_value1.get() == "4500":
+                if atmbalance >= 4500:
+                    atmbalance = atmbalance - 4500
+                    messagebox.showinfo('Successful Transaction', 'You have withdrawn 4500 pesos')
+                    withdraw.withdraw()
+                    goToLastPage()
+                else:
+                    messagebox.showerror('Error!', 'You do not have enough balance')
+
+            elif withdraw_value1.get() == "5000":
+                if atmbalance >= 5000:
+                    atmbalance = atmbalance - 5000
+                    messagebox.showinfo('Successful Transaction', 'You have withdrawn 5000 pesos')
+                    withdraw.withdraw()
+                    goToLastPage()
+                else:
+                    messagebox.showerror('Error!', 'You do not have enough balance')
+
+        submitbtn_img = ImageTk.PhotoImage(Image.open(r"image files/submitbtn.png"))
+        submitbtn = withdrawcanvas.create_image(555, 550, image=submitbtn_img)
+
+        withdrawcanvas.tag_bind(submitbtn, "<Button-1>", onSubmit)
+
+        # back button
+        def backbutton(event):
+            withdraw.withdraw()
+            callhome()
+
+        backbutton_image = Image.open(
+            r'image files\backbtn.png')
+        backbutton_image_resize = backbutton_image.resize((200, 40))
+        backbutton_image_final = ImageTk.PhotoImage(backbutton_image_resize)
+        backbutton_image_layout = withdrawcanvas.create_image(900, 560, anchor=NW, image=backbutton_image_final)
+        withdrawcanvas.tag_bind(backbutton_image_layout, "<Button-1>", backbutton)
+
+        withdraw.resizable(False, False)
+        withdraw.mainloop()
+
+    withdrawPhoto = ImageTk.PhotoImage(Image.open(r"image files\withdrawbtn.png"))
+    btnWithdraw = homecanvas.create_image(550, 360, image=withdrawPhoto)
+    homecanvas.tag_bind(btnWithdraw, "<Button-1>", withdraw)
+
+    # for balance inquiry button
+    def balinq(event):
+        home.destroy()
+
+        balance = Toplevel()
+        balance.geometry("1100x628")
+        balance.title("Bank IT")
+        balance.iconbitmap(r"image files\logo.ico")
+        balancebg = ImageTk.PhotoImage(file=r"image files\BG-2.jpg")
+
+        balancecanvas = Canvas(balance, width=1100, height=628)
+        balancecanvas.pack(fill="both", expand=True)
+        balancecanvas.create_image(0, 0, image=balancebg, anchor="nw")
+
+        # logo of bank it
+        logo = ImageTk.PhotoImage(file=r"image files\logo.png")
+        balancecanvas.create_image(80, 40, image=logo,
+                                   anchor="nw")
+
+        # balance inquiry page font
+        balance_mainfont = TkFont.Font(family="Myriad Pro", size=75, weight="bold")
+        balance_subfont = TkFont.Font(family="Myriad Pro", size=14)
+        balancefont = TkFont.Font(family="Myriad Pro", size=39)
+
+        # balance inquiry page logo
+        logo = ImageTk.PhotoImage(file=r'image files\logo.png')
+        balancecanvas.create_image(80, 40, image=logo, anchor="nw")
+
+        # balance inquiry design/layout
+        balancecanvas.create_text(550, 160, text="Balance", fill='white', font=balance_mainfont)
+        balancecanvas.create_text(555, 300, text="Account Balance (Savings)", fill='#F6008d', font=balance_subfont)
+
+        phptextbox = Image.open('image files\php_txtbox.png')
+        phptextbox_resize = phptextbox.resize((340, 70))
+        phptextbox_final = ImageTk.PhotoImage(phptextbox_resize)
+        balancecanvas.create_image(380, 340, anchor=NW, image=phptextbox_final)
+        balancecanvas.create_text(565, 374, text=atmbalance, fill='white',
+                                  font=balancefont)
+
+        # back button
+        def backbutton(event):
+            balance.withdraw()
+            callhome()
+
+        backbutton_image = Image.open(
+            r'image files\backbtn.png')
+        backbutton_image_resize = backbutton_image.resize((200, 40))
+        backbutton_image_final = ImageTk.PhotoImage(backbutton_image_resize)
+        backbutton_image_layout = balancecanvas.create_image(900, 560, anchor=NW, image=backbutton_image_final)
+        balancecanvas.tag_bind(backbutton_image_layout, "<Button-1>", backbutton)
+
+        balance.resizable(False, False)
+        balance.mainloop()
+
+    balinqPhoto = ImageTk.PhotoImage(Image.open(r"image files\binquirybtn.png"))
+    btnBInquiry = homecanvas.create_image(550, 420, image=balinqPhoto)
+    homecanvas.tag_bind(btnBInquiry, "<Button-1>", balinq)
+
+
+    def deposit(event):
+        home.destroy()
+        deposit = Toplevel()
+        deposit.geometry("1100x628")
+        deposit.title("Bank IT")
+        deposit.iconbitmap(r"image files\logo.ico")
+        depositbg = ImageTk.PhotoImage(file=r"image files\BG-1.png")
+
+        depositcanvas = Canvas(deposit, width=1100, height=628)
+        depositcanvas.pack(fill="both", expand=True)
+        depositcanvas.create_image(0, 0, image=depositbg, anchor="nw")
+
+        # logo of bank it
+        logo = ImageTk.PhotoImage(file=r"image files\logo.png")
+        depositcanvas.create_image(80, 40, image=logo,
+                                   anchor="nw")
+
+        # deposit page fonts
+        deposit_mainfont = TkFont.Font(family="Myriad Pro", size=75, weight="bold")
+        deposit_subfont = TkFont.Font(family="Myriad Pro", size=11)
+        depositfont = TkFont.Font(family="Myriad Pro", size=30)
+
+        depositcanvas.create_text(550, 160, text="Deposit", fill='white', font=deposit_mainfont)
+        depositcanvas.create_text(550, 240, text="How much do you wish to deposit?", fill='white',
+                                  font=deposit_subfont)
+        depositcanvas.create_text(550, 260, text="Enter your desired amount:", fill='white',
+                                  font=deposit_subfont)
+
+        deposit_value1 = StringVar()
+        deposit_image = Image.open(r"image files\php_txtbox.png")
+        deposit_resize = deposit_image.resize((330, 60))
+        deposit_img = ImageTk.PhotoImage(deposit_resize)
+        depositcanvas.create_image(385, 300, anchor="nw", image=deposit_img)
+
+        def deposit_limit(*args):
+            global limit
+            global newval
+
+            newval = int(deposit_entry.get())
+
+            if newval > 50000:
+                messagebox.showerror('Error!', 'You have reached the amount limit')
+                deposit_entry.delete(0, END)
+            elif deposit_entry.get().isalpha() == True or deposit_entry.get() in specialchar:
+                messagebox.showerror('Error!', 'You must input a number')
+                deposit_entry.delete(0, END)
+
+        deposit_value1.trace("w", lambda *args: deposit_limit(deposit_value1))
+
+        # creating text box for pin1
+        deposit_entry = Entry(deposit,
+                              font=depositfont,
+                              width=8,
+                              fg="white",
+                              bd=0,
+                              bg="#161B81",
+                              justify="right",
+                              textvariable=deposit_value1)
+        deposit_entry.pack()
+        depositbox = depositcanvas.create_window(605, 329, window=deposit_entry)
+        deposit_entry.bind('<BackSpace>', lambda *args: 'break')
+
+        # button for five hundred
+        def fivehun(event):
+
+            value1 = "500"
+            if len(deposit_entry.get()) != 0:
+                deposit_entry.delete(0, END)
+                deposit_entry.insert(0, value1)
+
+            elif len(deposit_entry.get()) == 0:
+                deposit_entry.insert(0, value1)
+
+        fivehun_image = Image.open(r'image files\5h.png')
+        fivehun_resize = fivehun_image.resize((110, 36))
+        fivehun_final = ImageTk.PhotoImage(fivehun_resize)
+        fivehun_layout = depositcanvas.create_image(170, 400, anchor=NW, image=fivehun_final)
+        depositcanvas.tag_bind(fivehun_layout, "<Button-1>", fivehun)
+
+        # button for one thousand
+        def onethou(event):
+
+            value1 = "1000"
+            if len(deposit_entry.get()) != 0:
+                deposit_entry.delete(0, END)
+                deposit_entry.insert(0, value1)
+
+            elif len(deposit_entry.get()) == 0:
+                deposit_entry.insert(0, value1)
+
+        onethou_image = Image.open(r'image files\1k.png')
+        onethou_resize = onethou_image.resize((110, 36))
+        onethou_final = ImageTk.PhotoImage(onethou_resize)
+        onethou_layout = depositcanvas.create_image(340, 400, anchor=NW, image=onethou_final)
+        depositcanvas.tag_bind(onethou_layout, "<Button-1>", onethou)
+
+        # button for one thousand five hundred
+        def onefive(event):
+            global amount
+            value1 = "1500"
+            if len(deposit_entry.get()) != 0:
+                deposit_entry.delete(0, END)
+                deposit_entry.insert(0, value1)
+
+            elif len(deposit_entry.get()) == 0:
+                deposit_entry.insert(0, value1)
+
+        onefive_image = Image.open(r'image files\1k5.png')
+        onefive_resize = onefive_image.resize((110, 36))
+        onefive_final = ImageTk.PhotoImage(onefive_resize)
+        onefive_layout = depositcanvas.create_image(500, 400, anchor=NW, image=onefive_final)
+        depositcanvas.tag_bind(onefive_layout, "<Button-1>", onefive)
+
+        # button for two thousand
+        def twothou(event):
+            global amount
+            value1 = "2000"
+            if len(deposit_entry.get()) != 0:
+                deposit_entry.delete(0, END)
+                deposit_entry.insert(0, value1)
+            elif len(deposit_entry.get()) == 0:
+                deposit_entry.insert(0, value1)
+
+        twothou_image = Image.open(r'image files\2k.png')
+        twothou_resize = twothou_image.resize((110, 36))
+        twothou_final = ImageTk.PhotoImage(twothou_resize)
+        twothou_layout = depositcanvas.create_image(670, 400, anchor=NW, image=twothou_final)
+        depositcanvas.tag_bind(twothou_layout, "<Button-1>", twothou)
+
+        # button for two thousand five hundred
+        def twofive(event):
+            global amount
+            value1 = "2500"
+            if len(deposit_entry.get()) != 0:
+                deposit_entry.delete(0, END)
+                deposit_entry.insert(0, value1)
+            elif len(deposit_entry.get()) == 0:
+                deposit_entry.insert(0, value1)
+
+        twofive_image = Image.open(r'image files\2k5.png')
+        twofive_resize = twofive_image.resize((110, 36))
+        twofive_final = ImageTk.PhotoImage(twofive_resize)
+        twofive_layout = depositcanvas.create_image(840, 400, anchor=NW, image=twofive_final)
+        depositcanvas.tag_bind(twofive_layout, "<Button-1>", twofive)
+
+        # button for three thousand
+        def threethou(event):
+
+            value1 = "3000"
+            if len(deposit_entry.get()) != 0:
+                deposit_entry.delete(0, END)
+                deposit_entry.insert(0, value1)
+
+            elif len(deposit_entry.get()) == 0:
+                deposit_entry.insert(0, value1)
+
+        threethou_image = Image.open(r'image files\3k.png')
+        threethou_resize = threethou_image.resize((110, 36))
+        threethou_final = ImageTk.PhotoImage(threethou_resize)
+        threethou_layout = depositcanvas.create_image(170, 460, anchor=NW, image=threethou_final)
+        depositcanvas.tag_bind(threethou_layout, "<Button-1>", threethou)
+
+        # button for three thousand five hundred
+        def threefive(event):
+
+            value1 = "3500"
+            if len(deposit_entry.get()) != 0:
+                deposit_entry.delete(0, END)
+                deposit_entry.insert(0, value1)
+
+            elif len(deposit_entry.get()) == 0:
+                deposit_entry.insert(0, value1)
+
+        threefive_image = Image.open(r'image files\3k5.png')
+        threefive_resize = threefive_image.resize((110, 36))
+        threefive_final = ImageTk.PhotoImage(threefive_resize)
+        threefive_layout = depositcanvas.create_image(340, 460, anchor=NW, image=threefive_final)
+        depositcanvas.tag_bind(threefive_layout, "<Button-1>", threefive)
+
+        # button for four thousand
+        def fourthou(event):
+            global amount
+            value1 = "4000"
+            if len(deposit_entry.get()) != 0:
+                deposit_entry.delete(0, END)
+                deposit_entry.insert(0, value1)
+
+            elif len(deposit_entry.get()) == 0:
+                deposit_entry.insert(0, value1)
+
+        fourthou_image = Image.open(r'image files\4k.png')
+        fourthou_resize = fourthou_image.resize((110, 36))
+        fourthou_final = ImageTk.PhotoImage(fourthou_resize)
+        fourthou_layout = depositcanvas.create_image(500, 460, anchor=NW, image=fourthou_final)
+        depositcanvas.tag_bind(fourthou_layout, "<Button-1>", fourthou)
+
+        # button for four thousand five hundred
+        def fourfive(event):
+            global amount
+            value1 = "4500"
+            if len(deposit_entry.get()) != 0:
+                deposit_entry.delete(0, END)
+                deposit_entry.insert(0, value1)
+            elif len(deposit_entry.get()) == 0:
+                deposit_entry.insert(0, value1)
+
+        fourfive_image = Image.open(r'image files\4k5.png')
+        fourfive_resize = fourfive_image.resize((110, 36))
+        fourfive_final = ImageTk.PhotoImage(fourfive_resize)
+        fourfive_layout = depositcanvas.create_image(670, 460, anchor=NW, image=fourfive_final)
+        depositcanvas.tag_bind(fourfive_layout, "<Button-1>", fourfive)
+
+        # button for five thousand
+        def fivethou(event):
+            global amount
+            value1 = "5000"
+            if len(deposit_entry.get()) != 0:
+                deposit_entry.delete(0, END)
+                deposit_entry.insert(0, value1)
+            elif len(deposit_entry.get()) == 0:
+                deposit_entry.insert(0, value1)
+
+        fivethou_image = Image.open(r'image files\5k.png')
+        fivethou_resize = fivethou_image.resize((110, 36))
+        fivethou_final = ImageTk.PhotoImage(fivethou_resize)
+        fivethou_layout = depositcanvas.create_image(840, 460, anchor=NW, image=fivethou_final)
+        depositcanvas.tag_bind(fivethou_layout, "<Button-1>", fivethou)
+
+        # button for deleting
+        def clicked(event):
+            deposit_entry.delete(0, END)
+
+        backspace_img = Image.open(r"image files/Backspace.png")
+        backspace_resize = backspace_img.resize((50, 50))
+        backspace = ImageTk.PhotoImage(backspace_resize)
+        backspacebtn = depositcanvas.create_image(750, 330, image=backspace)
+        depositcanvas.tag_bind(backspacebtn, "<Button-1>", clicked)
+
+        def OnSubmit(event):
+            global atmbalance
+            global newval
+
+            if deposit_value1.get().isnumeric() == True :
+                newval = int(deposit_value1.get())
+                atmbalance = atmbalance + newval
+                messagebox.showinfo('Successful Transaction', 'You have withdrawn successfully')
+                deposit.withdraw()
+                home.destroy()
+                goToLastPage()
+
+            if deposit_value1.get() == "500":
+                atmbalance = atmbalance + 500
+                messagebox.showinfo('Successful Transaction', 'You have deposited 500 pesos')
+                deposit.withdraw()
+                goToLastPage()
+
+            elif deposit_value1.get() == "1000":
+                atmbalance = atmbalance + 1000
+                messagebox.showinfo('Successful Transaction', 'You have deposited 1000 pesos')
+                deposit.withdraw()
+                goToLastPage()
+
+            elif deposit_value1.get() == "1500":
+                atmbalance = atmbalance + 1500
+                messagebox.showinfo('Successful Transaction', 'You have deposited 1500 pesos')
+                deposit.withdraw()
+                goToLastPage()
+
+            elif deposit_value1.get() == "2000":
+                atmbalance = atmbalance + 2000
+                messagebox.showinfo('Successful Transaction', 'You have deposited 2000 pesos')
+                deposit.withdraw()
+                goToLastPage()
+
+            elif deposit_value1.get() == "2500":
+                atmbalance = atmbalance + 2500
+                messagebox.showinfo('Successful Transaction', 'You have deposited 2500 pesos')
+                deposit.withdraw()
+                goToLastPage()
+
+            elif deposit_value1.get() == "3000":
+                atmbalance = atmbalance + 3000
+                messagebox.showinfo('Successful Transaction', 'You have deposited 3000 pesos')
+                deposit.withdraw()
+                goToLastPage()
+
+            elif deposit_value1.get() == "3500":
+                atmbalance = atmbalance + 3500
+                messagebox.showinfo('Successful Transaction', 'You have deposited 3500 pesos')
+                deposit.withdraw()
+                goToLastPage()
+
+            elif deposit_value1.get() == "4000":
+                atmbalance = atmbalance + 4000
+                messagebox.showinfo('Successful Transaction', 'You have deposited 4000 pesos')
+                deposit.withdraw()
+                goToLastPage()
+
+            elif deposit_value1.get() == "4500":
+                atmbalance = atmbalance + 4500
+                messagebox.showinfo('Successful Transaction', 'You have deposited 4500 pesos')
+                deposit.withdraw()
+                goToLastPage()
+
+            elif deposit_value1.get() == "5000":
+                atmbalance = atmbalance + 5000
+                messagebox.showinfo('Successful Transaction', 'You have deposited 5000 pesos')
+                deposit.withdraw()
+                goToLastPage()
+
+        submitbtn_img = ImageTk.PhotoImage(Image.open(r"image files/submitbtn.png"))
+        submitbtn = depositcanvas.create_image(555, 550, image=submitbtn_img)
+
+        depositcanvas.tag_bind(submitbtn, "<Button-1>", OnSubmit)
+
+        # back button
+        def backbutton(event):
+            deposit.withdraw()
+            callhome()
+
+        backbutton_image = Image.open(
+            r'image files\backbtn.png')
+        backbutton_image_resize = backbutton_image.resize((200, 40))
+        backbutton_image_final = ImageTk.PhotoImage(backbutton_image_resize)
+        backbutton_image_layout = depositcanvas.create_image(900, 560, anchor=NW, image=backbutton_image_final)
+        depositcanvas.tag_bind(backbutton_image_layout, "<Button-1>", backbutton)
+
+
+
+        deposit.resizable(False, False)
+        deposit.mainloop()
+
+    depositPhoto = ImageTk.PhotoImage(Image.open(r"image files\depositbtn.png"))
+    btnDeposit = homecanvas.create_image(550, 480, image=depositPhoto)
+    homecanvas.tag_bind(btnDeposit, "<Button-1>", deposit)
+
+    # back button
+    def backbutton(event):
+        home.withdraw()
+        start()
+
+
+
+    backbutton_image = Image.open(
+        r'image files\backbtn.png')
+    backbutton_image_resize = backbutton_image.resize((200, 40))
+    backbutton_image_final = ImageTk.PhotoImage(backbutton_image_resize)
+    backbutton_image_layout = homecanvas.create_image(900, 560, anchor=NW, image=backbutton_image_final)
+    homecanvas.tag_bind(backbutton_image_layout, "<Button-1>", backbutton)
+
+
+    home.resizable(False, False)
+    home.mainloop()
+
+
+def callhome():
+    goToHomePage()
+
+def goToLastPage():
+
+    lastpage = Toplevel()
+    lastpage.geometry("1100x628")
+    lastpage.title("Bank IT")
+    lastpage.iconbitmap(r"image files\logo.ico")
+    lastpagebg = ImageTk.PhotoImage(file=r"image files\BG-8.jpg")
+
+    lastpagecanvas = Canvas(lastpage, width=1100, height=628)
+    lastpagecanvas.pack(fill="both", expand=True)
+    lastpagecanvas.create_image(0, 0, image=lastpagebg, anchor="nw")
+
+    # logo of bank it
+    logo = ImageTk.PhotoImage(file=r"image files\logo.png")
+    lastpagecanvas.create_image(80, 40, image=logo,
+                anchor="nw")
+
+    # declaring the properties of font
+    mainfont = TkFont.Font(family="Myriad Pro", size=50, weight="bold")
+    subfont = TkFont.Font(family="Myriad Pro", size=12)
+    contactfont = TkFont.Font(family="Myriad Pro", size=13)
+    footerfont1 = TkFont.Font(family="Myriad Pro", size=12, weight="bold")
+    footerfont2 = TkFont.Font(family="Myriad Pro", size=12)
+
+    # creatings texts
+    lastpagecanvas.create_text(350, 200, text="Your transaction", fill='white', font=mainfont)
+    lastpagecanvas.create_text(300, 270, text="is successful!", fill='white', font=mainfont)
+    lastpagecanvas.create_text(210, 340, text="Thank you for using Bank IT.", fill='white', font=subfont)
+
+    lastpagecanvas.create_text(140, 530, text="| Bank IT", fill='white', font=footerfont1)
+    lastpagecanvas.create_text(220, 565, text="General Luna corner Muralla Streets,", fill='white', font=footerfont2)
+    lastpagecanvas.create_text(218, 585, text="Intramuros, Manila, Philippines 1002", fill='white', font=footerfont2)
+
+
+    def bth(Event):
+        lastpage.withdraw()
+        goToHomePage()
+    bthbtn_img = ImageTk.PhotoImage(Image.open(r"image files/bth.png"))
+    bthbtn = lastpagecanvas.create_image(170, 430, image=bthbtn_img)
+
+
+    lastpagecanvas.tag_bind(bthbtn, "<Button-1>", bth)
+
+    def exit(Event):
+        lastpage.destroy()
+
+    exitbtn_img = ImageTk.PhotoImage(Image.open(r"image files/exit.png"))
+    exitbtn = lastpagecanvas.create_image(330, 430, image=exitbtn_img)
+
+    lastpagecanvas.tag_bind(exitbtn, "<Button-1>", exit)
+
+
+    lastpage.resizable(False, False)
+    lastpage.mainloop()
+
+
 main.resizable(False, False)
 main.mainloop()
+
+
+
+
+
