@@ -413,6 +413,7 @@ def goToHomePage():
         withdrawbox = withdrawcanvas.create_window(605, 329, window=withdraw_entry)
         withdraw_entry.bind('<BackSpace>', lambda *args: 'break')
 
+
         # button for five hundred
         def fivehun(event):
 
@@ -593,7 +594,8 @@ def goToHomePage():
                     withdraw.withdraw()
                     home.destroy()
                     goToLastPage()
-
+                else:
+                    messagebox.showerror('Error!', 'You do not have enough balance')
             elif withdraw_value1.get().isalpha() == True:
                 messagebox.showerror('Error!', 'Invalid input. Please try again')
 
@@ -807,15 +809,8 @@ def goToHomePage():
         depositcanvas.create_image(385, 300, anchor="nw", image=deposit_img)
 
         def deposit_limit(*args):
-            global limit
-            global newval
 
-            newval = int(deposit_entry.get())
-
-            if newval > 50000:
-                messagebox.showerror('Error!', 'You have reached the amount limit')
-                deposit_entry.delete(0, END)
-            elif deposit_entry.get().isalpha() == True or deposit_entry.get() in specialchar:
+            if deposit_entry.get().isalpha() == True or deposit_entry.get() in specialchar:
                 messagebox.showerror('Error!', 'You must input a number')
                 deposit_entry.delete(0, END)
 
@@ -1111,16 +1106,48 @@ def goToHomePage():
     # back button
     def backbutton(event):
         home.withdraw()
-        start()
+        lastpage = Toplevel()
+        lastpage.geometry("1100x628")
+        lastpage.title("Bank IT")
+        lastpage.iconbitmap(r"image files\logo.ico")
+        lastpagebg = ImageTk.PhotoImage(file=r"image files\BG-8.jpg")
 
+        lastpagecanvas = Canvas(lastpage, width=1100, height=628)
+        lastpagecanvas.pack(fill="both", expand=True)
+        lastpagecanvas.create_image(0, 0, image=lastpagebg, anchor="nw")
 
+        # logo of bank it
+        logo = ImageTk.PhotoImage(file=r"image files\logo.png")
+        lastpagecanvas.create_image(80, 40, image=logo,
+                                    anchor="nw")
+
+        # declaring the properties of font
+        mainfont = TkFont.Font(family="Myriad Pro", size=50, weight="bold")
+        subfont = TkFont.Font(family="Myriad Pro", size=12)
+        contactfont = TkFont.Font(family="Myriad Pro", size=13)
+        footerfont1 = TkFont.Font(family="Myriad Pro", size=12, weight="bold")
+        footerfont2 = TkFont.Font(family="Myriad Pro", size=12)
+
+        # creatings texts
+        lastpagecanvas.create_text(350, 200, text="Your transaction", fill='white', font=mainfont)
+        lastpagecanvas.create_text(300, 270, text="is successful!", fill='white', font=mainfont)
+        lastpagecanvas.create_text(210, 340, text="Thank you for using Bank IT.", fill='white', font=subfont)
+
+        lastpagecanvas.create_text(130, 530, text="| Bank IT", fill='white', font=footerfont1)
+        lastpagecanvas.create_text(220, 565, text="General Luna corner Muralla Streets,", fill='white',
+                                   font=footerfont2)
+        lastpagecanvas.create_text(218, 585, text="Intramuros, Manila, Philippines 1002", fill='white',
+                                   font=footerfont2)
+
+        lastpage.resizable(False, False)
+        lastpage.mainloop()
 
     backbutton_image = Image.open(
-        r'image files\backbtn.png')
-    backbutton_image_resize = backbutton_image.resize((200, 40))
-    backbutton_image_final = ImageTk.PhotoImage(backbutton_image_resize)
-    backbutton_image_layout = homecanvas.create_image(900, 560, anchor=NW, image=backbutton_image_final)
-    homecanvas.tag_bind(backbutton_image_layout, "<Button-1>", backbutton)
+        r'image files\logoutbtn.png')
+    logoutbtn_image_resize = backbutton_image.resize((200, 40))
+    logoutbtn_image_final = ImageTk.PhotoImage(logoutbtn_image_resize)
+    logoutbtn_image_layout = homecanvas.create_image(900, 560, anchor=NW, image=logoutbtn_image_final)
+    homecanvas.tag_bind(logoutbtn_image_layout, "<Button-1>", backbutton)
 
 
     home.resizable(False, False)
@@ -1159,7 +1186,7 @@ def goToLastPage():
     lastpagecanvas.create_text(300, 270, text="is successful!", fill='white', font=mainfont)
     lastpagecanvas.create_text(210, 340, text="Thank you for using Bank IT.", fill='white', font=subfont)
 
-    lastpagecanvas.create_text(140, 530, text="| Bank IT", fill='white', font=footerfont1)
+    lastpagecanvas.create_text(130, 530, text="| Bank IT", fill='white', font=footerfont1)
     lastpagecanvas.create_text(220, 565, text="General Luna corner Muralla Streets,", fill='white', font=footerfont2)
     lastpagecanvas.create_text(218, 585, text="Intramuros, Manila, Philippines 1002", fill='white', font=footerfont2)
 
